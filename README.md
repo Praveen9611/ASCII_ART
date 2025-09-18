@@ -14,14 +14,5 @@ You can even copy the output with one click and use it anywhere.
 - ✅ Example text buttons (HELLO, WORLD, CODE, ASCII, PYTHON) to try it quickly  
 - ✅ Clean UI with gradient background and smooth design  
 
----
-
-  _   _      _ _
- | | | | ___| | | ___
- | |_| |/ _ \ | |/ _ \
- |  _  |  __/ | | (_) |
- |_| |_|\___|_|_|\___/
-
-
 
 
