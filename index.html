@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to ASCII Art Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            min-width: 300px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        select {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output-section {
+            margin-top: 30px;
+        }
+
+        #asciiOutput {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 30px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1;
+            white-space: pre;
+            overflow-x: auto;
+            min-height: 200px;
+            text-align: left;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid #333;
+        }
+
+        .copy-btn {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .copy-btn:hover {
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
+        }
+
+        .examples {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .examples h3 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .example-btn {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .example-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            input[type="text"] {
+                min-width: 100%;
+            }
+            
+            #asciiOutput {
+                font-size: 10px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 ASCII Art Generator</h1>
+        <p class="subtitle">Transform your text into beautiful ASCII art instantly!</p>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <input type="text" id="textInput" placeholder="Enter your text here..." maxlength="20">
+                <select id="fontSelect">
+                    <option value="standard">Standard</option>
+                    <option value="big">Big</option>
+                    <option value="block">Block</option>
+                    <option value="bubble">Bubble</option>
+                    <option value="digital">Digital</option>
+                </select>
+                <button onclick="generateAscii()">Generate ASCII</button>
+            </div>
+        </div>
+
+        <div class="examples">
+            <h3>Try these examples:</h3>
+            <div class="example-buttons">
+                <button class="example-btn" onclick="setExample('HELLO')">HELLO</button>
+                <button class="example-btn" onclick="setExample('WORLD')">WORLD</button>
+                <button class="example-btn" onclick="setExample('CODE')">CODE</button>
+                <button class="example-btn" onclick="setExample('ASCII')">ASCII</button>
+                <button class="example-btn" onclick="setExample('PYTHON')">PYTHON</button>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <div id="asciiOutput">Enter text above and click "Generate ASCII" to see the magic happen!</div>
+            <button class="copy-btn" onclick="copyToClipboard()">📋 Copy ASCII Art</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
